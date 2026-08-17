@@ -24,6 +24,9 @@ unless noted otherwise.
 | B14 | Grammar-filtered top-4 reading (proper-noun-style additions) | 65,000 | 0 match |
 | B15 | Word-order permutations of a third 8-word set (grammar-filtered reading) | 8^8 = 16,777,216 | 0 match |
 | B16 | Word-order permutations of the same set, alternate tie-break | 8^8 = 16,777,216 | 0 match |
+| B17 | Slot 5 `{e4d5, 1984}` × slot 8 `{base, dots}`, with the six documented anchors fixed (2026-08-16); head/middle/tail coverage probes only, not a positive witness | 2 x 2 = 4 | 0 match (uncertified: no known-good control was re-found through the runner) |
+| B18 | Slot 1 `{weve, a16z, anno}` × slot 5 `{e4d5, 1984}` × slot 7 `{pull, vest, pool}` × slot 8 `{base, dots}`, with slots 2/3/4/6 fixed as `md12/a384/cash/root`; `tools/slot1_slot5_slot7_slot8_product.py` using `oracle.check`, with positive sibling control re-found through that check path; measured rate 1 / 4.21 s = 0.2375 candidates/s, N/D = 151.56 s (2026-08-16) | 3 x 2 x 3 x 2 = 36 total; 32 novel after deducting B17's 4-member overlap | 0 match in 105.54 s; head/middle/tail coverage probes also 0 match |
+
 
 Also refuted, not a candidate sweep: forensic steganalysis of all 8 rebus images and the
 page itself (exiftool, binwalk, `zsteg -a`) found no LSB payload, no appended bytes, no

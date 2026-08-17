@@ -2,7 +2,7 @@
 
 No certified oracle exists for this puzzle: the target is a raw 256-bit private key with no
 intermediate checksum, so every candidate below was checked by deriving its ETH address
-(`eth_keys`, compressed public key) and comparing it byte-exact (case-insensitive on the hex)
+(uncompressed secp256k1 public key, without its `0x04` prefix) and comparing it byte-exact
 against `0xFF2142E98E09b5344994F9bEB9C56C95506B9F17`. The derivation code itself (SHA-256,
 Keccak-256, and secp256k1 point multiplication) is standard and was checked against public
 test vectors, but I have no known-answer candidate specific to this puzzle to certify the
@@ -48,3 +48,13 @@ same address-comparison harness, with 0 matches and 0 near-misses anywhere. This
 every direct, single-transform reading of the measured geometry and the metadata anomaly that I
 was able to enumerate. It does not rule out a reading that depends on information outside this
 image, such as the promised but never-delivered "$100" hint (see "Open leads, ranked").
+
+## Bounded single-LSB raster product
+
+| Hypothesis | Space | Method | Result | Witness | Date |
+|---|---|---|---|---|---|
+| The raw 256-bit key is one consecutive block in the least-significant-bit stream of a visual channel. Raster starts are canonical (top-left forward or bottom-right reverse); both channel choices (grayscale L, alpha A) and both within-byte bit orders were covered. | 55,248 blocks = 2 channels x 2 directions x 2 byte bit orders x 6,906 full 256-bit blocks; 36,787 invalid scalars rejected, 18,461 valid scalars reached the address oracle | `python3 tools/lsb_product.py --run`; verified source SHA-256; direct secp256k1 public-key derivation, Ethereum Keccak-256, and case-normalized exact comparison; preflight D = 493.0 calls/s and t = 112.1 seconds | 0 exact matches | uncertified for image-to-key mapping: `--selftest` passes Keccak-256, Ethereum address, and scalar-validation vectors, but no Puzzle #11 known-good extraction exists | 2026-08-16 |
+
+This rules out the stated canonical-start, one-LSB block product only. It does not cover
+noncanonical carrier starts, other bit planes/widths, or an ASCII-hex extraction path, so the
+ranked systematic LSB lead remains open.

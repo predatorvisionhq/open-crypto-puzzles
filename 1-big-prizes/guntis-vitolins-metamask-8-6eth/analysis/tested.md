@@ -69,6 +69,57 @@ partition, `fork` on the post side, same anchors. 490,776 candidate subsets,
 another job). Witness: 6 planted candidates, all 6 recovered. Rate: 668,827
 derivations/second. Duration: 4 hours 28 minutes. Result: 0 match.
 
+## L1a -- one video liaison under a post-first source-order skeleton (2026-08-16)
+
+Set: a deliberately narrow, reproducible branch of lead 1, rather than a
+wordlist expansion. It fixes the six post-side members to the source-order
+post skeleton forced by the position-1 and floating-word evidence, uses either
+position-5 water-word branch, and fills the four pre-final video slots with
+every source-order four-word subsequence containing exactly one of the six
+previously unswept video liaisons and three established video content words.
+The fixed final word is `parrot`. This yielded 672 distinct 12-word lists; 16
+passed BIP39 checksum and were derived and compared.
+
+Command: `../../.venv/bin/python tools/search_liaison_ordered.py --run`.
+Before the candidate batch, the executable `oracle.py --stdin` was benchmarked
+with 128 checksum-valid public standard vectors at 108.65 derivations/second;
+thus N = 16 and N/D = 0.147 seconds, below the 2-hour limit. The actual
+16-input batch sustained 22.36 derivations/second and returned 0 `MATCH`.
+Witness: PASS. The solver verified the canonical public BIP39 vector's known
+address, its live-target nonmatch, and the exact oracle `MATCH` branch using
+an in-memory substitution of that public expected address; target candidates
+were then passed only to the live `oracle.py --stdin` comparator.
+
+This is a certified negative for this 672-list skeleton only. It does not
+close lead 1: the broad liaison lead still lacks an evidence-backed ordering
+or subset rule that would make a larger finite branch non-arbitrary.
+
+## L2a -- prefix `cat` substituted for planted `cattle` (2026-08-16)
+
+Set: the smallest evidence-backed substring branch. The author explicitly said
+a list word may hide inside a longer written word, and `cat` is a contiguous
+prefix of the planted BIP39 word `cattle`. This run substitutes `cat` exactly
+at `cattle`'s post-first/source-order slot, retains the other five post
+skeleton members, uses either allowed position-5 water-word, and fills the
+four pre-final video slots with every source-order four-word subsequence of
+the eight established full video words. It therefore does not enumerate
+arbitrary substrings: 140 distinct 12-word lists were generated, 2 passed
+BIP39 checksum, and both were derived and compared.
+
+Command: `../../.venv/bin/python tools/search_substring_cat_ordered.py --run`.
+Before the candidate batch, the executable `oracle.py --stdin` benchmarked 128
+checksum-valid public standard vectors at 60.47 derivations/second; thus N = 2
+and N/D = 0.033 seconds, below the 2-hour limit. The actual 2-input batch
+sustained 1.44 derivations/second and returned 0 `MATCH`. Witness: PASS. The
+solver verified the canonical public BIP39 vector's known address, live-target
+nonmatch, and the exact oracle `MATCH` branch using a temporary in-memory
+substitution of that public expected address; target candidates were then sent
+only to the live `oracle.py --stdin` comparator.
+
+This is a certified negative for the 140-list `cat`-for-`cattle` skeleton
+only. It does not close lead 2: the author supplied no deterministic criterion
+for selecting the other literal substrings or their placement/order.
+
 ## Cumulative, metadata-extended era (G1 through R1b, plus P1)
 
 16,749,552,467 candidate derivations across the 6 sweeps above, all negative,

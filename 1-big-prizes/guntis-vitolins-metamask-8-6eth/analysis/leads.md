@@ -1,7 +1,8 @@
 # Open leads, full notes
 
 Ranked summary is in the README. This file has the reasoning behind the
-ranking. All 3 leads below are priced and specified; none has been run.
+ranking. None of the 3 leads has been exhaustively run; L1a is a narrow,
+certified-negative branch recorded in `analysis/tested.md`.
 
 ## 1. Extend the swept word pool with connecting words (liaisons)
 
@@ -15,6 +16,10 @@ research's own P2 estimate, before the metadata extension, priced this
 addition at 15/14 words per side, 1.36x10^10 derivations, about 3.8 hours on
 one GPU. Extending the already-metadata-inclusive R1 pool the same way is a
 comparable-sized addition.
+
+The 2026-08-16 L1a source-order skeleton (672 lists, 16 derivations) returned
+0 match. It excludes only that deterministic branch; no evidence yet selects
+an ordering or a smaller liaison subset for the remaining broad space.
 
 What would confirm it: a match within the extended set.
 What would kill it: exhausting the extended set with 0 match, the same witness
@@ -36,6 +41,11 @@ and "inner" (dinner). The private research's own P3 estimate for a
 substring-inclusive sweep, before the metadata extension, was 21/20 words per
 side, 2.78x10^11 derivations, about 77 hours on one GPU (later re-priced
 downward once a faster kernel was validated at 792,000 derivations/second).
+
+The 2026-08-16 L2a `cat`-for-`cattle` prefix skeleton (140 lists, 2
+derivations) returned 0 match. It excludes only that most conservative literal
+substitution; the source supplies no deterministic rule for the remaining
+substrings or their seed placement/order.
 
 What would confirm it: a match within the substring-extended set.
 What would kill it: exhausting it with 0 match.

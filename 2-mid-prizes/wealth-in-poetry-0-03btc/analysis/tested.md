@@ -16,6 +16,7 @@ exhaustion.
 | Image steganography on full-resolution originals pulled from the CDN | 11 images, up to 4448x2555 | LSB analysis on lossless formats | pure noise (bit ratio about 0.4995 to 0.5004), 0 WIF or hex64 strings recovered from any bit plane | uncertified | 2026-08-02 |
 | Direct WIF/hex scan of the raw article file | 125 base58-like substrings matched | BIP38/WIF checksum check | 0 pass the checksum, all traced to base64-encoded image data | uncertified | 2026-08-02 |
 | Stylometric steganalysis: token surprisal and contrastive substitution scoring across the full 2,360-word narrative (563 BIP39 words, 23.9 percent density) | full narrative | two transformer language models of different sizes, each scoring insertion likelihood | BIP39 words statistically indistinguishable from ordinary words; no detectable insertion fingerprint | uncertified | 2026-08-02 |
+| Steganographia title-page illustration as a numeric key | $N=0$ candidate phrases | Direct visual inspection of the exact 4448×2555 Medium image; require a visible numeric table, ordered sequence, or stated extraction rule before applying the published position mechanism | No bounded non-arbitrary family exists: the image is a title page with one imprint date, not a cipher table | No candidate / oracle not applicable; target ships no oracle | 2026-08-16 |
 
 The structural constraint that the published GPS formula, applied to the full narrative, leaves 2
 of 12 word slots with zero valid BIP39 options confirms the published example is a demonstration,

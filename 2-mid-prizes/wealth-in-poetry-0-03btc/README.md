@@ -77,9 +77,9 @@ compare it, byte for byte, to the escrow address at
 
 ## What has been tested
 
-Full ledger in [analysis/tested.md](analysis/tested.md). Every negative below is marked
-uncertified: no known-good acceptance vector has been built for the derivation code, so under
-this repository's own convention these counts describe search coverage, not proven exhaustion.
+Full ledger in [analysis/tested.md](analysis/tested.md). Every candidate-bearing negative below
+is uncertified: no known-good acceptance vector has been built for the derivation code, so under
+this repository's convention these counts describe search coverage, not proven exhaustion.
 
 | Hypothesis | Space | Method | Result | Witness | Date |
 |---|---|---|---|---|---|
@@ -88,19 +88,12 @@ this repository's own convention these counts describe search coverage, not prov
 | Passphrase (25th word) sweep on the 4 clean seeds: curated article-derived terms, full-phrase candidates, brute-force wordlists | about 78,000 derivations | address comparison | 0 match | uncertified | 2026-08-02 |
 | Image steganography: full-resolution originals, LSB analysis on lossless formats | 11 images | bit-plane analysis | pure noise (bit ratio about 0.5), 0 WIF or hex64 strings recovered | uncertified | 2026-08-02 |
 | Direct WIF/hex scan of the raw article file | 125 base58-like substrings | BIP38/WIF checksum check | 0 pass the checksum (all image data false positives) | uncertified | 2026-08-02 |
+| Steganographia title-page illustration as a numeric key | $N=0$ candidate phrases | direct visual inspection of the exact 4448×2555 public article image | no numeric table, ordered sequence, or extraction rule; no bounded family | no candidate; oracle not applicable | 2026-08-16 |
 
 ## Open leads, ranked
 
-1. **Read the cipher table on the embedded Steganographia title-page photo** (hours). The article
-   embeds a high-resolution photo of the title page of Trithemius's own historical book
-   Steganographia, shelfmark Jesus College M.7.7, which contains genuine cipher tables. The
-   author published this image without flagging it as a candidate key; it is the one artifact in
-   the article not yet exploited as a possible numeric key source.
-2. **Rule out an old-Electrum (non-BIP39) wallet** (hours). If the wallet predates BIP39, the
-   large body of BIP39-based derivation work to date is off-target even with the correct words.
-3. **Build a certified acceptance test for the derivation code** (minutes). No known-good
-   seed-and-address pair has ever been run through the derivation library to prove it accepts a
-   correct candidate; every negative above is technically unproven without this.
+None are actionable from the material shipped here. The remaining unresolved fact is the author's
+undisclosed real carrier text and numeric key; it does not define a bounded reproducible family.
 
 ## Files in this folder
 

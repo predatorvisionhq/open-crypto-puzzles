@@ -1,29 +1,41 @@
-# Open leads: Wealth in Poetry
+# Lead analysis: Wealth in Poetry
 
-## 1. Read the cipher table on the embedded Steganographia photo (hours)
+## Closed: read the purported cipher table on the Steganographia illustration ($N=0$)
 
-The article embeds a high-resolution photograph (4448x2555) of the title page of Trithemius's
-own historical book, Steganographia, shelfmark Jesus College M.7.7. The real Steganographia
-contains genuine cipher tables, including tabula recta constructions, and the page the author
-chose to photograph is legible enough to potentially read a table from directly. The author
-published this image as illustration without flagging it as a candidate key, but it is the one
-artifact in the article not yet tested as a numeric-key source, and it fits the pseudonym's own
-theme closely enough to be worth the read. Confirmed if a table extracted this way, run through
-the calibrated tokenization and any standard derivation, reproduces the escrow address; killed if
-the table yields no valid-checksum 12-word phrase after a reasonable range of readings.
+The exact public image used in the Medium article is
+`https://miro.medium.com/v2/resize:fit:4448/1*tP7U5Tpv7oA5eklwA36tyQ.png`
+(4448×2555). Direct visual inspection establishes that it is an open book whose right-hand page
+is a Steganographia title page, not a cipher-table page. It has title/dedication/imprint layout
+and a single Roman-numeral publication date; neither page has a numeric grid, ordered sequence,
+table, position index, or declared extraction rule.
 
-## 2. Rule out an old-Electrum (non-BIP39) wallet (hours)
+The published Trithemian mechanism requires such a key to select positions. Reading digits,
+letters, coordinates, or an order into this illustration would impose an unbounded external rule,
+so it cannot produce a deterministic bounded seed family. The lead is therefore killed precisely
+at $N=0$: no candidate was created and no oracle comparison was applicable. No third-party image
+or text was copied into this repository.
 
-If the real wallet predates BIP39 and uses an old-Electrum seed instead, the large body of
-BIP39-based derivation work to date, including all 3 major campaigns in analysis/tested.md, is
-off-target even with the correct words and the correct key. Electrum-format derivation scripts
-already exist and would need to be re-run against the same 4 example seeds and against any
-candidate words the numeric-key work produces.
+## Closed: old-Electrum replay ($N=0$)
 
-## 3. Build a certified acceptance test for the derivation code (minutes)
+The only shipped materials are the README, this analysis, the negatives ledger, and the two
+worked examples in `clues/author-posts.md`; there is no target-local derivation code, archived
+article/token corpus, or exact candidate list. The prior ledger records an old-Electrum v1/v2
+sweep over four example seeds, but it names rather than supplies the complete four-member corpus.
 
-No known-good seed-and-address pair has ever been run through the derivation library to prove it
-accepts a correct candidate. Since no solved sibling of this puzzle exists, the fastest fix is a
-synthetic test: build a throwaway 12-word phrase, derive its address under each supported path,
-then assert the library recognizes that address as a match. This would let every negative above
-be re-labeled from uncertified to certified without rerunning any of the underlying search.
+The two publicly quoted examples cannot repair that gap: replaying either would repeat the
+already-recorded old-Electrum family, while reconstructing the other two or introducing new
+selectors would create an unbounded, undocumented corpus. A target-local oracle is therefore not
+implemented: there is neither an exact untested candidate corpus to run nor an existing
+target-address comparison path it could reproduce. This lead is killed at $N=0$ with no loop,
+oracle invocation, or candidate material.
+
+## Closed: target-local oracle certification ($N=0$)
+
+This target ships no derivation source, executable, candidate corpus, or target-local
+address-comparison path. The required self-test invocation, `python3 tools/oracle.py --selftest`,
+fails because `tools/oracle.py` is absent. A public old-Electrum v1 known-answer vector could
+only certify a new, unrelated implementation; it cannot certify an absent target solver or make
+the unavailable old-Electrum corpus exact.
+
+Accordingly no oracle scaffold or synthetic substitute is added. There is no executable family to
+benchmark or run, so this prerequisite also closes at $N=0$ and does not create a ledger row.

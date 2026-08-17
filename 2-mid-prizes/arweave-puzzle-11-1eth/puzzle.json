@@ -38,14 +38,14 @@
   "puzzle_type": ["image-stego", "pixel-code", "raw-private-key"],
   "target_format": "raw 32-byte / 64-hex secp256k1 private key, standard ETH address derivation, no mnemonic, no keystore",
   "derivation": {
-    "summary": "extract a 256-bit value from the pixel content of the published PNG (channel, order, and quantization not yet determined) and compare its ETH address to the escrow address",
-    "oracle": null,
+    "summary": "extract a 256-bit value from the pixel content of the published PNG (channel, order, and quantization not yet determined) and compare its ETH address to the escrow address; tools/lsb_product.py implements the bounded direct-LSB product and exact address check",
+    "oracle": "tools/lsb_product.py",
     "oracle_certified": false,
-    "certified_against": "the derivation primitives (SHA-256, Keccak-256, secp256k1, EIP-55) are checked against public test vectors, but no known-answer image-to-key pair exists for this specific puzzle, so no oracle is shipped"
+    "certified_against": "tools/lsb_product.py --selftest checks Keccak-256, normalized Ethereum-address derivation, and scalar validation against public vectors, but no known-answer image-to-key pair exists for this specific puzzle"
   },
   "difficulty_left": "insight",
-  "difficulty_note": "the target format (raw private key, not a mnemonic) and the decoy (the address printed in the file's tEXt chunk) are both confirmed; close to 1,000 direct encodings of the measured geometry and the metadata anomaly have been tested, all negative; the exact pixel-level encoding is not yet known and no certified oracle exists to test one against, so the missing piece is either an unrecovered insight into the encoding or the never-delivered author hint",
-  "tested_total": { "candidates": 1000, "families": 4, "certified": false },
+  "difficulty_note": "the target format (raw private key, not a mnemonic) and the decoy (the address printed in the file's tEXt chunk) are both confirmed; the recorded families total about 56,000 candidates, including an exact 55,248-candidate canonical-start LSB raster product, all negative; the exact pixel-level encoding is not yet known and no puzzle-specific known answer exists to certify an image-to-key mapping",
+  "tested_total": { "candidates": 56000, "families": 5, "certified": false },
   "leads": [
     { "rank": 1, "title": "systematic LSB scan of the continuous grayscale and alpha channels", "cost": "hours", "status": "open" },
     { "rank": 2, "title": "join the community Telegram group and search first-hand for the promised hint", "cost": "needs-a-person", "status": "open" },

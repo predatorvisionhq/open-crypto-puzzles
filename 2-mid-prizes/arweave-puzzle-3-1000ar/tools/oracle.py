@@ -222,11 +222,11 @@ def decode_wallet(ciphertext_b64, passphrase):
     return plain.decode("latin-1", errors="replace")
 
 
-def check(candidate):
-    """Returns (ok, address_or_none)."""
-    if LOWERCASE_INPUT:
+def check(candidate, ciphertext_b64=CIPHERTEXT_B64, lowercase_input=LOWERCASE_INPUT):
+    """Returns (ok, address_or_none) for a ciphertext and candidate."""
+    if lowercase_input:
         candidate = candidate.lower()
-    out = decode_wallet(CIPHERTEXT_B64, candidate)
+    out = decode_wallet(ciphertext_b64, candidate)
     if GATE not in out:
         return False, None
     try:

@@ -2,15 +2,16 @@
 
 ## 1. A systematic LSB scan of the continuous grayscale and alpha channels (hours)
 
-Every candidate tried so far reads the geometry (building heights, widths, roof lines) or the
-container metadata as a whole value, hashed as a block. What has not been run is a bit-level
-scan of the 2 continuous 8-bit channels (grayscale, 256 levels; alpha, 26 distinct values
-observed) with a tool built for exactly this, such as `zsteg -a` or `stegoveritas`, keeping only
-a 64-hex output that derives exactly to the target address. This is the most direct reading of
-the author's own hint that "format does not matter," which argues for a payload in the pixel
-values themselves rather than in any container structure. Confirms: an extracted 64-hex string
-derives the target address exactly. Kills: an exhaustive bit-order and bit-width sweep of both
-channels with no address match, which has not yet been run to exhaustion.
+The first evidence-bounded product is now negative: `tools/lsb_product.py` scanned 55,248
+consecutive 256-bit blocks from the least-significant bits of both continuous channels
+(grayscale L, 256 levels; alpha, 26 distinct values observed), in canonical forward/reverse
+raster order and both within-byte bit orders. It found 0 exact matches; see
+`analysis/tested.md`. The unresolved space is still much wider: noncanonical carrier starts,
+other bit planes and widths, and extracted-text paths from tools such as `zsteg -a` or
+`stegoveritas`. This remains the most direct reading of the author's "format does not matter"
+hint, which argues for pixel values rather than container structure. Confirms: an extracted
+64-hex string derives the target address exactly. Kills: an exhaustive bit-order and bit-width
+sweep of both channels with no address match, which has not yet been run to exhaustion.
 
 ## 2. Join the community Telegram group and search first-hand for the "$100" hint (needs a
 person)

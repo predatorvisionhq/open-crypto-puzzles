@@ -154,11 +154,14 @@ Full ledger in [analysis/tested.md](analysis/tested.md). Summary:
 | Extended pool plus natural grammatical inflections | 10,752,000,393 derivations | same | 0 match | yes: 6/6 | 2026-08-15 |
 | Text reading order, contiguous halves, interleavings, full internal orderings | approximately 5.5 million candidates | same | 0 match | not individually recorded per row | before 2026-08-15 |
 | Likelihood-ratio closure of the 6-plus-6 word budget | 91,865 candidates | same | 0 match | not recorded | before 2026-08-15 |
+| Narrow one-video-liaison, post-first source-order skeleton | 672 enumerated / 16 derivations | same | 0 match; does not exhaust lead 1 | yes: canonical exact-MATCH path | 2026-08-16 |
+| Narrow prefix-substring, post-first source-order skeleton | 140 enumerated / 2 derivations | same | 0 match; does not exhaust lead 2 | yes: canonical exact-MATCH path | 2026-08-16 |
 
 Cumulative: approximately 16.75 billion candidate derivations tested across
 the 6 metadata-era sweeps, all negative and individually witnessed, plus
-roughly 5.6 million candidates from earlier, smaller sweeps. Full method
-notes are in `analysis/tested.md`.
+roughly 5.6 million candidates from earlier, smaller sweeps, and separate
+16-derivation liaison and 2-derivation substring attempts. Full method notes
+are in `analysis/tested.md`.
 
 ## Open leads, ranked
 

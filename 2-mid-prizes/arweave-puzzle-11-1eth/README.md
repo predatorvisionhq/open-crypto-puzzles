@@ -8,10 +8,10 @@ the author's own hint is "MEW: Access by Private Key," meaning the answer is a r
 private key read directly out of the image, not a mnemonic or a keystore file. The address
 printed in clear text inside the file's metadata is a confirmed decoy. I measured the image's
 geometry precisely (12 buildings, 1 large sailboat, 5 small sails) and its metadata (a
-create-before-modify timestamp anomaly shared only with a sibling puzzle), and tested close to
-1,000 direct encodings of both against the target address, all negative. The exact pixel-level
-encoding the author used is still unknown, and no certified oracle exists for this puzzle since
-no known-answer candidate is available to test the harness against.
+create-before-modify timestamp anomaly shared only with a sibling puzzle), then tested 55,248
+additional bounded single-LSB raster readings against the target address, all negative. The
+exact pixel-level encoding the author used is still unknown, and no certified oracle exists for
+this puzzle since no known-answer candidate is available to test the harness against.
 
 ## At a glance
 
@@ -60,22 +60,16 @@ address inside the file would defeat the point of a puzzle.
 
 ### Derivation and oracle
 
-No certified oracle is shipped for this folder. A candidate is checked by treating it as a
-32-byte private key, deriving its Ethereum address, and comparing the result to the target
-case-insensitively:
+`tools/lsb_product.py` implements the direct candidate oracle: it treats a candidate as a
+32-byte private key, derives the uncompressed secp256k1 public key, takes Ethereum
+Keccak-256 of its 64-byte X/Y representation, and compares the final 20 bytes to the target
+case-insensitively. `python3 tools/lsb_product.py --selftest` verifies the Keccak-256 empty
+message vector, a public Ethereum address-derivation vector, and scalar rejection; a scan only
+reports an exact address match and never prints a candidate.
 
-```python
-from eth_keys import keys
-candidate_privkey = bytes.fromhex("...")  # 32 bytes
-address = keys.PrivateKey(candidate_privkey).public_key.to_checksum_address().lower()
-match = address == "0xff2142e98e09b5344994f9beb9c56c95506b9f17"
-```
-
-This comparison code is standard and was checked against public secp256k1 and EIP-55 test
-vectors, so a "no match" on any candidate below is reliable. What is not certified is the step
-before it, the mapping from image content to a 32-byte candidate: no known-answer image and key
-pair exists for this puzzle to test that mapping against, so every negative in this folder
-carries an "uncertified" mark rather than a witness.
+This is not a puzzle-certified oracle: no known-answer image-to-key pair exists to test the
+mapping from image content to a 32-byte candidate. A no-match therefore excludes the exact
+enumerated candidates, while the image-extraction family remains marked uncertified.
 
 ### Certified against
 
@@ -120,17 +114,19 @@ Full ledger in [analysis/tested.md](analysis/tested.md). Summary:
 | Metadata date anomaly (create/modify timestamps, several encodings and combinations) | dozens of encodings times 6 hash functions | address comparison | 0 match, 0 near-miss | uncertified | 2026-06-13 |
 | Sibling-puzzle-#9-calibrated alpha channel carrier hypotheses | several hundred combinations | address comparison, calibrated against #9's real address | 0 match, 0 near-miss, and does not reproduce #9's known answer either | yes, on the #9 positive control only | 2026-06-13 |
 | Container-structure myths (embedded executable or filesystem) | full file | binwalk, chunk inspection | refuted: clean valid PNG | yes | 2026-06-13 |
+| Bounded one-LSB raster blocks from both channels | 55,248 candidates (2 channels × 2 directions × 2 byte bit orders × 6,906 blocks) | direct raw-key extraction, exact normalized ETH-address comparison | 0 match (36,787 invalid scalars; 18,461 valid oracle calls) | uncertified; derivation self-test only | 2026-08-16 |
 
-Cumulative: on the order of 1,000 candidates tested across geometry and metadata families,
-0 matches, 0 near-misses under the `ff21` address-prefix check.
+Cumulative: more than 55,248 candidates were tested across the recorded families; 0 exact matches. The
+single-LSB product did not compute a prefix/near-miss metric.
 
 ## Open leads, ranked
 
-1. **A systematic LSB scan of the continuous grayscale and alpha channels** (hours). Every
-   candidate so far reads geometry or metadata as a whole value; a bit-level scan with a tool
-   built for this (`zsteg -a`, `stegoveritas`) has not yet been run to exhaustion. Confirmed if
-   an extracted 64-hex string derives the target exactly; killed once the sweep is exhaustive
-   across bit order and bit width with no match.
+1. **A systematic LSB scan of the continuous grayscale and alpha channels** (hours). One
+   bounded one-LSB product, covering canonical raster starts, forward/reverse order, and both
+   byte bit orders, now has 55,248 exact negative readings. Uncovered dimensions remain other carrier
+   start phases, bit planes and widths, and tool-directed extracted-text paths (`zsteg -a`,
+   `stegoveritas`). Confirmed if an extracted 64-hex string derives the target exactly; killed
+   only once the wider sweep is exhaustive across bit order and bit width with no match.
 2. **Join the community Telegram group and search first-hand for the promised hint** (needs a
    person). I already searched the full archived window (November 2021 to May 2026) and found
    nothing; what remains untested is anything from before the archive starts or outside its

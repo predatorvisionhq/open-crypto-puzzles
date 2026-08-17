@@ -25,6 +25,7 @@ even though the identical toolbox worked on the prior one.
 | Word-per-hour read at the numeral centroid plus 1 row (3 candidates per hour), 4 canonical orderings (clockwise, reverse, 12-first clockwise, 12-first counterclockwise) | 1,193,373 combinations tested (132,597 checksum-valid) | BIP44 m/44'/60'/0'/0/0 plus neighbor sweep | 0 match, 131.8 seconds | yes | 2026-07-14 |
 | Asymmetric row window (centroid plus or minus 1 row), each of the 4 orderings separately | 531,441 combinations per ordering (about 33,000 checksum-valid each) | same oracle | 0 match | yes | 2026-06-17 |
 | Wider asymmetric window refinement (best visual reads with row-aware neighbors) | about 8.6e8 estimated space, sampled rather than exhausted | same oracle | 0 match on the sampled region | yes | 2026-06-17 |
+| Exactly one ambiguous hour read at a new `+/-2` wrapped row, with the other 8 ambiguous hours restricted to their prior 3-word sets; wrap widths 169 through 175 and 4 canonical orderings | 1,495,908 combinations (93,069 checksum-valid) | `tools/wider_row_search.py`; target pass split at 10,000, then generator-only coverage replay with matching SHA-256 stream commitments | 0 match in 1,763.054 seconds; measured 932.18 candidates/s, estimated 1,594.007 seconds before the full run | yes (known-good BIP39 KAT re-found through the same candidate check call at head, middle, and tail of both committed segments) | 2026-08-16 |
 | Distinct-overlay hypothesis (12 words marked by a different color or intensity) | full image histogram | gray-intensity and hue histogram analysis | refuted: exactly 1 gray text population, only 2 non-gray hue families (the red sunburst spokes, the yellow title and signature); no marking of any kind at any of the 12 numeral positions | yes (direct pixel measurement) | 2026-06-17 |
 | Higher-resolution or vector source | prize contract tokenURI, POAP asset server, artist website, album video | direct fetch and comparison | refuted: the 2004x2011 raster in this folder is the finest source found anywhere; the album video is 1080p, lower resolution than the plot | yes | 2026-06-17 |
 | Calibration against a known-answer "Bifurcations" POAP | POAP GraphQL query for any drop with "bifurcation" in its name | direct API query | refuted: 0 drops match; no known-answer clock image exists for this artist to reverse-engineer the readout rule from | yes | 2026-06-17 |
@@ -39,8 +40,10 @@ as untested, not as a negative.
 
 ## Summary
 
-Across the POAP-image family, 1,193,373 plus 531,441 times 4 plus a sampled 8.6e8-sized space
-have been checked, 0 matches, 0 partial hits. The clock-and-grid mechanism itself (order from
-the hour position, word from the wordlist cell the numeral overlays) is confirmed by 3 hours
-that read with no row ambiguity at all; what remains open is resolving the row for the other 9
-hours past plus-or-minus 1, which the published 2004-pixel raster does not resolve further.
+Across the POAP-image family, 1,193,373 plus 531,441 times 4 plus the exact 1,495,908-member
+single-hour `+/-2` family and a sampled 8.6e8-sized space have been checked, with 0 matches
+and 0 partial hits. The clock-and-grid mechanism itself (order from the hour position, word
+from the wordlist cell the numeral overlays) is confirmed by 3 hours that read with no row
+ambiguity. Remaining variants require either multiple hours to move outside the prior
+`+/-1` rows or a different pixel-selection rule; the published 2004-pixel raster does not
+resolve either constraint further.
