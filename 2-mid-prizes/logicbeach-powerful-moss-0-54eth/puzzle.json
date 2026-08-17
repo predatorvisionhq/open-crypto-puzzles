@@ -38,18 +38,18 @@
   "puzzle_type": ["image-stego", "bip39-seed", "word-selection", "smart-contract"],
   "target_format": "BIP39 12 words (English), BIP44 m/44'/60'/0'/0/0, no passphrase, address must equal the winner wallet authorized to call withdraw()",
   "derivation": {
-    "summary": "read 12 words in clock order off the POAP clock-and-wordlist image, derive the BIP44 m/44'/60'/0'/0/0 address (plus a small account/index neighbor sweep), and compare it to the winner wallet the prize contract's withdraw() function accepts",
+    "summary": "The earlier clock-order/numeral-overlay derivation is an unverified historical hypothesis, not a native-image-established selector. The byte-exact raster audit found no twelve-clock-numeral layer; a candidate family can only be generated after author-grounded geometry maps to exactly twelve BIP39 wordlist cells. The certified oracle remains ready to derive BIP44 addresses and compare them to the winner wallet once such a family exists.",
     "oracle": "tools/oracle.py",
     "oracle_certified": true,
     "certified_against": "the public BIP39 all-zero-entropy test vector and the artist's own prior solved 'Bifurcations' BIP84 vector"
   },
   "difficulty_left": "insight",
-  "difficulty_note": "the carrier (the POAP clock image, not the audio), the order (clock position), and the derivation path are all confirmed; 3 of 12 hours read with no ambiguity and over 3.3 million combinations of the rest have been tested negative; the blocker is a resolution limit on the only known copy of the image (a numeral spans about 2 text rows, so 9 of 12 hours carry about 3 candidate words each), not raw compute, so an unrecovered insight into the exact readout rule or a finer source is what remains",
-  "tested_total": { "candidates": 3319137, "families": 3, "certified": true },
+  "difficulty_note": "The previously assumed numeral-overlays-word selector cannot be derived from the byte-exact native raster: its visible red labels are plot-axis/scale labels rather than a twelve-hour numeral set. The audited bottom-pixel and ray-length variants therefore have N=0. The unresolved prerequisite is an author-grounded mapping from artwork geometry to exactly twelve BIP39 wordlist cells; without it, no further candidate family is bounded.",
+  "tested_total": { "candidates": 4815045, "families": 4, "certified": true },
   "leads": [
-    { "rank": 1, "title": "re-run the grid enumeration at a wider row window, one doubtful hour at a time", "cost": "hours", "status": "open" },
-    { "rank": 2, "title": "resample at the numeral's bottom pixel instead of its centroid", "cost": "minutes", "status": "open" },
-    { "rank": 3, "title": "test the sunburst ray length as an alternative per-hour selector", "cost": "hours", "status": "open" }
+    { "rank": 1, "title": "recover an author-grounded twelve-cell geometry mapping", "cost": "external evidence", "status": "open" },
+    { "rank": 2, "title": "resample at the numeral's bottom pixel instead of its centroid", "cost": "minutes", "status": "closed" },
+    { "rank": 3, "title": "test the sunburst ray length as an alternative per-hour selector", "cost": "hours", "status": "closed" }
   ],
   "solutions": [],
   "artifacts": [

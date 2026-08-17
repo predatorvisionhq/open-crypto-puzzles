@@ -100,6 +100,36 @@ every corpus and ordering tried (Satoshi's bitcointalk posts newest-first and
 chronological, Hal Finney's posts, Hal Finney's tweets) contains neither "change"
 nor "from".
 
+2026-08-16 bounded index check:
+
+| Corpus definition | Records | Position-76 result | Candidates | Result |
+|---|---:|---|---:|---|
+| Every chronological submission object by AoiNakamoto in r/Grycoin, including cross-posts | 87 | `ce4ixs`, "[8 mbtc] Quizchain2 Block 71" | 1 published answer/TOMI pair | 0 match |
+| The same sequence restricted to self-posts (`is_self = true`) | 71 | no position 76 | 0 | n/a |
+
+The public recovery query was
+`https://api.pullpush.io/reddit/search/submission/?author=AoiNakamoto&subreddit=Grycoin&sort=asc&sort_type=created_utc&size=100`;
+the final page beginning with Block 73 returned 10 records (Block 73 plus the
+last nine), establishing the 87-record extent. The selected Block-71 record
+supplies its already-published answer pair; its solution MD5 is
+`4818b1f815b8ea5aebe4c0112180b64a` (not `1d`) and its formatted-string MD5 is
+`4bcacee7f46c6dcb96531b8137d4688f` (not `f8e`). Its published pair was first
+run through `--block76-filter`, then through the certified standard address
+oracle: 0 match.
+
+Before the one-candidate address run, the real `tools/oracle.py` took 0.78 s
+per candidate (D = 1.28 candidates/s), so N = 1 gave t = 0.78 s, well below
+two hours. `tools/oracle.py --selftest` passed immediately beforehand. The
+self-post-only interpretation has N = 0, so no solver or address run was
+created for it.
+
+The exact wording lead adds no further deterministic solution corpus. The
+published question says `change to`; its update says to change it "from
+'change to' to 'from change to'"; and the author's direct reply to the public
+question "to or two?" is "to." This resolves spelling only, not an answer or
+TOMI field. Literal source strings were already covered by the existing
+45-string row, so no candidate was repeated (N = 0).
+
 A large dictionary-times-corpus sweep tested every 1-to-4-word phrase built from
 the author's own writing (Reddit posts, comments, and Wattpad chapters) as a
 candidate TOMI value, against a dictionary-and-WordNet-derived candidate solution

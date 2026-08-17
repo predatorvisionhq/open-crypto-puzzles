@@ -187,12 +187,13 @@ Full ledger in [analysis/tested.md](analysis/tested.md). Summary:
 | Block 76: standard BIP44/49/84 derivations, paths, passphrases on the one chain found by search | standard space plus 24,564 off-by-one variants | MD5 to BIP39 to address compare | 0 match | yes: calibrated on blocks 73 and 74 | 2026-08-15 |
 | Block 76: word-transform "salves" on "change to" / "from change to" | approximately 53,000 candidate solutions | MD5-prefix filter, then derivation on survivors | 0 match | yes | 2026-08-15 |
 | Block 76: scripted dictionary-times-corpus sweep | approximately 3.2x10^11 MD5, approximately 78,000,000 derivations | MD5-prefix filter, then derivation on survivors | 0 match | yes: calibrated on blocks 73 and 74 | 2026-08-15 |
+| Block 76: position 76 in the recovered r/Grycoin submission corpus | 1 published pair; self-post-only corpus has 71 records (N=0) | MD5 prefixes, then target-bound address oracle | 0 match | partial: published pair reached both filters and exact target comparison; transform selftest is separate | 2026-08-16 |
 
 Cumulative: approximately 272 million candidates tested against Real Big Block
 and approximately 78 million derivations plus approximately 78,000 smaller
-candidates tested against Block 76, all negative. Full scope notes, including
-which rows are complete sweeps versus targeted tests, are in
-`analysis/tested.md`.
+candidates and 1 indexed published pair tested against Block 76, all negative.
+Full scope notes, including which rows are complete sweeps versus targeted
+tests, are in `analysis/tested.md`.
 
 ## Open leads, ranked
 
@@ -217,10 +218,10 @@ which rows are complete sweeps versus targeted tests, are in
 4. **Identify what "76" indexes for Block 76** (minutes per candidate corpus).
    A method confirmed on 3 sibling blocks uses the block number as a position
    index into a specific numbered corpus; every corpus tried so far does not
-   contain "change" at position 76. Confirmed by a match in an untried corpus
-   (candidates include a fuller archive of Hal Finney's tweets, Satoshi's
-   SourceForge posts, or the author's own r/Grycoin posts read as their own
-   sequence); killed by exhausting the remaining candidate corpora.
+   contain "change" at position 76. The author's chronological r/Grycoin
+   submission corpus is closed: its exact position-76 pair was negative, and
+   its self-post subset has only 71 records. Remaining candidates include a
+   fuller archive of Hal Finney's tweets and Satoshi's SourceForge posts.
 5. **A short, human-reasoned answer to "change to" / "from change to"**
    (minutes per candidate). The author's confirmed style elsewhere in the
    series favors short, punchy wordplay answers over long dictionary phrases; a

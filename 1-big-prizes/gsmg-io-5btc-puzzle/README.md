@@ -172,6 +172,16 @@ Reproduced 2026-08-16.
    exactly, with no residual bits.
 8. The final page's HTML markup carries no additional hidden channel beyond the
    1075 tokens, the image, and the two text blocks (checked directly).
+9. The repository pins a 570-character Bifid ciphertext manually extracted
+   from the public SalPhaseIon token stream. The full upstream stream is not
+   shipped, so its reported 90-token prefix, 104-token `abba` block, and first
+   `z` boundary cannot be reproduced from repository artifacts alone. The
+   pinned ciphertext decrypts with `DBIFHCEG` (J omitted, period 570), starts
+   `BTCSEED`, and re-encrypts byte-exactly. Its second zero-based interleave has
+   285 symbols; removing 29 I/O symbols yields the documented 256-symbol,
+   23-letter object. The omitted sequence is committed by SHA-256
+   `1a9599b2566222fcfe7e2564b7dd7013e140f191065a697fe67693f9de02c191`.
+
 
 ## What has been tested
 
@@ -186,12 +196,16 @@ Full ledger in [analysis/tested.md](analysis/tested.md). Summary:
 | A substring of the object is a Base58Check string to decode | 123,728 candidates | Base58Check checksum, then address comparison | 0 match, 0 valid checksum | yes | 2026-07-28 |
 | Large "Dualite" blob read directly as bits, no password | 59,269 candidates | direct address comparison | 0 match | yes | 2026-07-30 |
 | Literal password strings harvested from 1,017 archived scripts, replayed under a fixed appearance filter | 116,043 candidates | AES decrypt then address comparison | 0 match | yes | 2026-07-28 |
+| 29 symbols dropped from the Bifid interleave, direct/reversed/keyed readings | 6 candidates | target-bound, partially certified small-blob oracle | 0 match | partial: AES and address halves only | 2026-08-16 |
+| Bounded `esrever` reversals of the 256/285-symbol objects and small blob | 6 candidates | target-bound, partially certified small-blob oracle | 0 match | partial: AES and address halves only | 2026-08-16 |
+
 
 Cumulative: approximately 335.7 million candidates tested as direct reductions of
 the 256-symbol object or the large blob, all negative; a further 116,043-candidate
-partial replay of historical literal password guesses, also negative. Full scope
-and method notes for each row, including why the literal-string replay is
-explicitly partial, are in `analysis/tested.md`.
+partial replay of historical literal password guesses and 12 target-bound,
+partially certified-oracle submissions are also negative. Full scope and method
+notes for each row, including why the literal-string replay is explicitly partial,
+are in `analysis/tested.md`.
 
 ## Open leads, ranked
 
@@ -216,15 +230,15 @@ explicitly partial, are in `analysis/tested.md`.
    menu of available ciphers). Confirmed by a cipher from that tool's menu
    producing a match on the "Dualite" password or the 256-object reduction; killed
    by exhausting that tool's short menu with no match.
-4. **Follow "esrever", the earliest published hint** (minutes to hours). The
-   author's first hint, "reverse" spelled backwards, has been applied to the object
-   it was originally paired with but not to the current final-gate objects.
-   Confirmed by a reversal (string, bit, or reading-order) of one current object
-   matching an address; killed by exhausting the small set of reasonable reversals.
-5. **Read the 29 dropped letters as their own message** (minutes). Reducing the
-   285-letter stream to the 256-symbol object drops exactly 29 letters, never read
-   as an object in their own right. Confirmed by a match or a legible fragment;
-   killed by exhausting the small set of reasonable reading orders.
+4. **Follow "esrever", the earliest published hint** (minutes to hours). Six
+   reading-order/source-case reversals of the 256/285-symbol objects and small
+   blob are negative through the target-bound, partially certified small-blob
+   oracle pipeline. Bit-level reversals and the separate Dualite gate remain
+   untested, so this lead stays open.
+5. **Read the 29 dropped letters as their own message** (minutes). The exact
+   sequence is now reconstructed and committed by SHA-256; six direct, reverse,
+   and keyed readings are negative through the same target-bound, partially
+   certified pipeline. Broader semantic interpretations remain open.
 
 Full notes: [analysis/leads.md](analysis/leads.md).
 
@@ -241,6 +255,7 @@ Full notes: [analysis/leads.md](analysis/leads.md).
 | `images/02-pipeline-derivation.svg` | the final-gate derivation pipeline for the small blob |
 | `tools/oracle.py` | candidate checker for the small-blob route, certified in two independent parts |
 | `tools/fig_stages.py` | generates images/01-structure-stages.svg from data/stage-chain.json |
+| `tools/search_dropped_esrever.py` | checks the pinned 570-character Bifid ciphertext and 2 bounded lead families without printing candidates |
 | `tools/fig_pipeline.py` | generates images/02-pipeline-derivation.svg from data/pipeline-stages.json |
 
 ## Sources

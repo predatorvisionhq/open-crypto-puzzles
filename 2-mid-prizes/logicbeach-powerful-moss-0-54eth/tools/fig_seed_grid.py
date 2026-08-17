@@ -3,10 +3,10 @@
 fig_seed_grid.py -- generates images/01-seed-grid.svg
 
 Purpose:
-    Draw the 12-hour BIP39 seed grid: which hours are confirmed by eye, which carry a
-    short candidate list because the numeral's row is ambiguous by +/-1 on the
-    published raster. Every hour, status, and candidate word comes from
-    data/seed-grid.json, not hard-coded here.
+    Draw the historical 12-position BIP39 grid hypothesis: which positions had
+    one word in the old read and which carried a +/-1-row candidate set. The
+    native raster does not establish these positions. Every position, status,
+    and candidate word comes from data/seed-grid.json.
 
 Usage:
     python3 tools/fig_seed_grid.py
@@ -39,7 +39,7 @@ def main() -> None:
     cols, rows = 4, 3
     cell_w, cell_h = 200, 130
     margin = 20
-    width = margin * 2 + cols * cell_w
+    width = margin * 2 + cols * cell_w + 80
     height = margin * 2 + rows * cell_h + 50
 
     parts = [
@@ -47,7 +47,7 @@ def main() -> None:
         f'viewBox="0 0 {width} {height}" font-family="DejaVu Sans, sans-serif">',
         f'<rect x="0" y="0" width="{width}" height="{height}" fill="#FFFFFF"/>',
         f'<text x="{margin}" y="30" font-size="18" font-weight="bold" fill="{INK}">'
-        f'12-hour seed grid: confirmed word (blue) vs candidates (orange)</text>',
+        f'Historical grid hypothesis: single read (blue), candidates (orange)</text>',
     ]
 
     for h in hours:
@@ -56,21 +56,21 @@ def main() -> None:
         row = idx // cols
         x = margin + col * cell_w
         y = margin + 40 + row * cell_h
-        confirmed = h["status"] == "confirmed"
-        color = BLUE if confirmed else ORANGE
+        single_read = h["status"] == "historical-single-read"
+        color = BLUE if single_read else ORANGE
         parts.append(f'<rect x="{x}" y="{y}" width="{cell_w - 12}" height="{cell_h - 12}" '
                       f'rx="8" fill="none" stroke="{color}" stroke-width="3"/>')
         parts.append(f'<text x="{x + 10}" y="{y + 22}" font-size="14" font-weight="bold" '
                       f'fill="{INK}">hour {h["hour"]}</text>')
-        if confirmed:
+        if single_read:
             parts.append(f'<text x="{x + 10}" y="{y + 48}" font-size="15" fill="{BLUE}">'
                           f'{h["candidates"][0]}</text>')
             parts.append(f'<text x="{x + 10}" y="{y + 68}" font-size="11" fill="{GRAY}">'
-                          f'read cleanly by eye</text>')
+                          f'one word in historical read</text>')
         else:
-            ty = y + 46
+            ty = y + 64
             parts.append(f'<text x="{x + 10}" y="{ty - 18}" font-size="11" fill="{GRAY}">'
-                          f'{len(h["candidates"])} candidates (+/-1 row):</text>')
+                          f'{len(h["candidates"])} historical candidates:</text>')
             for cand in h["candidates"]:
                 parts.append(f'<text x="{x + 10}" y="{ty}" font-size="13" fill="{ORANGE}">{cand}</text>')
                 ty += 18

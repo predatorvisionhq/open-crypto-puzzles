@@ -26,7 +26,7 @@ winner wallet, all negative, and no higher-resolution source of the image is kno
 | Puzzle type | image-stego, bip39-seed, word-selection, smart-contract |
 | Target format | BIP39 12 words (English), BIP44 `m/44'/60'/0'/0/0`, no passphrase, address must equal the winner wallet |
 | Certified oracle | yes: `tools/oracle.py --selftest` (certified against the public BIP39 KAT address and the artist's prior solved "Bifurcations" BIP84 vector) |
-| What remains | resolving the exact word for 9 of the 12 clock hours, each currently narrowed to about 3 candidates by a row-position ambiguity on the published image |
+| What remains | an author-grounded mapping from the artwork geometry to exactly 12 ordered BIP39 wordlist cells; the native raster has no visible 1-through-12 clock-numeral layer |
 | Series | none |
 
 ## The puzzle as published
@@ -34,29 +34,32 @@ winner wallet, all negative, and no higher-resolution source of the image is kno
 The album has 12 tracks, listed exactly as published in the NFT's own metadata in
 `data/tracks.json`. The NFT unlocks a download link, but the album is also freely downloadable
 from the puzzle page. A POAP badge tied to the launch, drop "PowerfulMoss By LogicBeach.eth" (drop
-id 183468, created 2025-01-10), carries the puzzle's real artwork: a clock face with 12 serif
-numerals laid over the complete alphabetical BIP39 wordlist rendered as wrapped monospace
-text, plus a 24-ray red sunburst and a cursive signature. The prize contract's own getters
-report a start time of 2025-01-17 20:00 UTC, a minimum claimable amount of 0.25 ETH, and a pot
-that grows toward the contract's full balance over time; an early withdrawal forfeits the
-remainder to the contract's creator. Full quotes and links in `clues/author-posts.md`.
+id 183468, created 2025-01-10), carries the puzzle artwork: the complete alphabetical BIP39
+wordlist rendered as wrapped monospace text, plus red plot axes and rays, a yellow title, and a
+cursive signature. Earlier analysis treated the overlay as a 12-hour clock, but native-raster
+inspection found no visible 1-through-12 numeral layer or ray-to-word-cell mapping. The prize
+contract's own getters report a start time of 2025-01-17 20:00 UTC, a minimum claimable amount of
+0.25 ETH, and a pot that grows toward the contract's full balance over time; an early withdrawal
+forfeits the remainder to the contract's creator. Full quotes and links in
+`clues/author-posts.md`.
 
-![The 12-hour seed grid: 3 hours read with no ambiguity in blue, 9 hours narrowed to about 3 candidate words each in orange](images/01-seed-grid.svg)
-*Figure 1. State of the seed grid by hour, confirmed versus candidate (source: data/seed-grid.json, script tools/fig_seed_grid.py), 2026-08-16.*
+![Historical 12-position grid hypothesis: 3 single reads in blue and 9 row-window candidate sets in orange](images/01-seed-grid.svg)
+*Figure 1. Historical candidate grid tested against the winner wallet; the native image does not establish its 12 positions (source: data/seed-grid.json, script tools/fig_seed_grid.py), 2026-08-16.*
 
 ## What is understood
 
 ### Mechanism
 
-12 BIP39 words, read off the POAP clock image in clock order, form a mnemonic that derives the
-winner wallet under the standard Ethereum path `m/44'/60'/0'/0/0` (precedented by the artist's
-2021 puzzle, which used the same path). The background of the POAP image is the full BIP39
-wordlist in alphabetical order, wrapped as monospace text at a measured row pitch of 48 pixels
-across 39 rows; the 12 clock numerals sit at measured centroid positions around a calibrated
-center, and the word each numeral overlays is read as that hour's candidate word. The row a
-numeral falls on can only be pinned to within 1 row on the published 2004x2011 raster, since the
-numeral glyphs themselves span roughly 2 rows: this is a resolution limit of the only image that
-exists, not a gap in the analysis.
+The target is expected to be a 12-word BIP39 mnemonic deriving the winner wallet
+under the standard Ethereum path `m/44'/60'/0'/0/0`, following the artist's 2021
+puzzle precedent. The POAP background contains the full BIP39 wordlist in
+alphabetical order, wrapped as monospace text at a measured row pitch of 48
+pixels across 39 rows. Earlier searches imposed 12 clock positions and read the
+wordlist cells at those positions. The native 2004x2011 raster does not contain
+a visible 1-through-12 numeral layer, so those positions and their three
+single-word reads are historical search hypotheses, not confirmed image facts.
+The oracle remains valid once an author-grounded selector supplies 12 ordered
+words.
 
 ### Derivation and oracle
 
@@ -95,13 +98,14 @@ BTC in that prior puzzle. Reproduced 2026-08-16.
    recording rather than a playback artifact, so the "Bifurcations" audio toolbox (which solved
    the artist's prior puzzle) finds nothing on all 12 tracks of this album: there is no high
    band left to carry spectrogram text.
-4. The POAP clock image (`clues/powerfulmoss-poap.png`) is a single flow-text layer plus a
-   decorative red-and-yellow vector overlay: a gray-intensity and hue histogram of the full
-   image shows exactly 1 text-gray population and only 2 non-gray hue families, ruling out any
-   distinctly marked word overlay.
-5. No source of the plot finer than the published 2004x2011 raster is known to exist: checked
-   against the prize contract's own `tokenURI`, the POAP asset server, the artist's website, and
-   the album's video (1080p, lower resolution than the plot).
+4. The POAP image (`clues/powerfulmoss-poap.png`) contains one gray flow-text
+   population, red plot axes and rays, and yellow title/signature elements. It
+   has no visible 1-through-12 clock-numeral layer, distinctly marked word
+   population, or ray-to-cell mapping.
+5. No source of the plot finer than the published 2004x2011 raster is known to
+   exist: checked against the prize contract's own `tokenURI`, the POAP asset
+   server, the artist's website, and the album's video (1080p, lower resolution
+   than the plot).
 6. The artist's 2 prior puzzles in this format both paid out to real solvers: "Bifurcations"
    (2020) to `bc1qj7467e7r5pdfpypm03wyvguupdrld0ul2gcutg`, fully spent, and the 2021 ETH puzzle
    to a wallet now at 0 ETH, both confirmed on-chain.
@@ -113,25 +117,30 @@ Full ledger in [analysis/tested.md](analysis/tested.md). Summary:
 | Hypothesis | Space | Method | Result | Witness | Date |
 |---|---|---|---|---|---|
 | Full "Bifurcations" audio toolbox on all 12 lossless masters | 12 tracks | spectrogram, Morse, SSTV, LSB, ASR, source separation | 0 findings, high band physically empty | yes | 2026-06-17 |
-| POAP grid enumeration, 4 canonical orderings, row window plus 1 | 1,193,373 combinations (132,597 checksum-valid) | BIP44 m/44'/60'/0'/0/0 plus neighbor sweep | 0 match | yes | 2026-07-14 |
-| Asymmetric row window per ordering | 531,441 combinations per ordering | same oracle | 0 match | yes | 2026-06-17 |
-| Wider row window refinement | about 8.6e8 estimated, sampled | same oracle | 0 match on sample | yes | 2026-06-17 |
+| Historical POAP grid enumeration, 4 canonical orderings, row window plus 1 | 1,193,373 combinations (132,597 checksum-valid) | BIP44 path sweep | 0 match | yes | 2026-07-14 |
+| Historical asymmetric row window per ordering | 531,441 combinations per ordering | same oracle | 0 match | yes | 2026-06-17 |
+| Exactly one historical hour opened to a new +/-2 row, 4 canonical orderings | 1,495,908 combinations (93,069 checksum-valid) | same oracle, committed stream replay | 0 match | yes | 2026-08-16 |
+| Native-raster viability audit of numeral-bottom-pixel and ray-length selectors | N=0 for each | byte-exact image inspection | no candidate stream exists | oracle selftest only; no candidates | 2026-08-16 |
 | Distinct-overlay and higher-resolution-source hypotheses | full image | histogram analysis, source hunt | both refuted | yes | 2026-06-17 |
 
-Cumulative: over 3.3 million candidate combinations tested against the winner wallet, 0
-matches. Lyric tokens on 2 tracks were deliberately not fed to the oracle: no mechanism selects
-which 12 of them would be the seed, so this is untested rather than negative.
+Cumulative: 4,815,045 candidate combinations from the historical grid
+hypothesis tested against the winner wallet, 0 matches. The native-raster audit
+shows that this grid is not an image-established selector. Lyric tokens on 2
+tracks were deliberately not fed to the oracle because no mechanism selects
+which 12 would form the seed.
 
 ## Open leads, ranked
 
-1. **Re-run the grid enumeration at a wider row window, one doubtful hour at a time** (hours).
-   Start with the hours clipped at the frame edge. Confirmed if an opened hour yields a match;
-   killed for the numeral-overlay reading once every doubtful hour is widened with no match.
-2. **Resample at the numeral's bottom pixel instead of its centroid** (minutes). A cheap
-   re-measurement that changes the candidate set for some hours before repeating the same
-   4-ordering sweep.
-3. **Test the sunburst ray length as an alternative per-hour selector** (hours). The 24 rays
-   have measurably varying length, never tested as a selection or ordering signal.
+1. **Recover an author-grounded twelve-cell geometry mapping** (external
+   evidence). A published author statement, source asset, or independently
+   verifiable legend must identify all 12 cells and their order before another
+   bounded image-derived candidate stream exists.
+2. **Resample at the numeral's bottom pixel instead of its centroid** (closed).
+   The native raster has no 12 numeral glyph boxes, so this interpretation has
+   N=0.
+3. **Test the sunburst ray length as an alternative per-hour selector**
+   (closed). Rays are visible, but the artwork supplies no hour anchors or
+   ray-length-to-word-cell mapping, so this interpretation also has N=0.
 
 Full notes: [analysis/leads.md](analysis/leads.md).
 
@@ -142,10 +151,10 @@ Full notes: [analysis/leads.md](analysis/leads.md).
 | `clues/powerfulmoss-poap.png` | the published POAP artwork, byte-exact, sha256 recorded in puzzle.json |
 | `clues/author-posts.md` | the author's published NFT metadata and launch-period quote, dated and linked |
 | `data/tracks.json` | the album's 12 track titles, exactly as published in the NFT metadata |
-| `data/seed-grid.json` | the 12-hour seed grid state (confirmed words, candidate words) |
+| `data/seed-grid.json` | the historical 12-position grid hypothesis and its tested candidate words; not a native-image-established selector |
 | `analysis/tested.md` | the complete negatives ledger |
 | `analysis/leads.md` | full notes behind the 3 ranked leads |
-| `images/01-seed-grid.svg` | the seed grid figure |
+| `images/01-seed-grid.svg` | figure for the historical grid hypothesis |
 | `tools/oracle.py` | candidate checker, BIP44 path sweep, certified |
 | `tools/fig_seed_grid.py` | generates images/01-seed-grid.svg from data/seed-grid.json |
 

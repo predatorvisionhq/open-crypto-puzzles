@@ -61,40 +61,35 @@ text for a similarly scoped variant.
 
 ## 4. Identify what "76" indexes for Block 76
 
-A method confirmed on 3 other blocks in the same series (56, 57, 58) uses the
-block's own number as a position index into a specific corpus (a numbered post
-by Satoshi Nakamoto or Hal Finney on bitcointalk, read in a specific order). The
-same method, tried against every corpus and ordering available (Satoshi's and
-Hal Finney's bitcointalk posts, Hal Finney's tweets), does not produce a post
-containing "change" or "from" at position 76. The corpus this method should
-index for block 76 has not been identified; candidates not yet tried include the
-complete list of Hal Finney's tweets (only 58 were recovered through the
-official API; a fuller archive may exist), Satoshi's SourceForge posts, the
-Bitcoin whitepaper or v0.1 source code read as a sequence of numbered units, and
-the author's own r/Grycoin posts read as their own numbered sequence.
+The recovered public submission corpus now eliminates the named r/Grycoin
+candidate deterministically. The chronological query
+`author=AoiNakamoto`, `subreddit=Grycoin`, sorted ascending by `created_utc`,
+contains 87 submission objects. Its item 76 is `ce4ixs`, Quizchain2 Block 71;
+the exact answer/TOMI pair published in that record fails both Block-76 MD5
+prefixes and the certified address oracle. Restricting the same corpus to
+original self-posts leaves only 71 records, so that convention has no
+position-76 candidate at all.
 
-What would confirm it: a position-76 item in the right corpus containing "change
-to" or "from change to", tested through `tools/oracle.py --block76-filter` and
-then a full derivation.
-What would kill it: exhausting the remaining candidate corpora with no match at
-position 76.
-Cost: minutes per corpus once a candidate corpus is assembled.
+This closes the author's-r/Grycoin-submissions corpus, including the only
+natural cross-post convention. It does not identify the corpus meant by the
+block number. The still-untried, separately bounded public corpora are a fuller
+Hal Finney tweet archive and Satoshi SourceForge material; any proposed
+whitepaper/source-code unitization must first define a stable, public numbering
+rule rather than generate variants.
 
 ## 5. A short, human-reasoned answer to "change to" / "from change to"
 
-The author's own hint structure (a short, freeform-text question plus a short
-TOMI expansion, confirmed on more than a dozen other blocks) argues for a short,
-punchy answer rather than a long dictionary phrase. The scripted sweep in
-`analysis/tested.md` covers dictionary and corpus vocabulary exhaustively within
-its stated bounds, but a human-reasoned short answer with unusual capitalization
-or punctuation (the author's own confirmed style on other blocks, for example
-"NGD" for "net zero" or "JD6" for "QWERTY") is a different kind of hypothesis
-than a word-list sweep can reach.
+The shipped Block-76 record preserves the question exactly as `change to` and
+the update exactly as changing it "from 'change to' to 'from change to'." The
+recovered public discussion supplies one further disambiguation: when asked
+"to or two?", the author answered "to." This rules out the homophone reading,
+but does not state a solution or a TOMI value. It therefore produces no new
+deterministic candidate pair (N = 0); the already-tested literal-post-string
+family must not be repeated.
 
-What would confirm it: any short candidate, tested through
-`tools/oracle.py --block76-filter` first (a near-instant filter) and then
-through a full derivation.
-What would kill it, in the useful sense: nothing kills this lead outright; it
-stays open as a standing invitation, same as any human-reasoned wordplay block
-in the series.
-Cost: minutes per candidate; no sweep implied.
+The author had said that Block 54 would also hint at Block 76, but the public
+statement provides no rule that maps that earlier solved block to one answer
+and one TOMI field. The remaining ambiguity is a genuinely human semantic
+reading of the prepositional `from ... to` construction, not a justified
+dictionary expansion. This lead remains open for a specific, evidence-backed
+pair.

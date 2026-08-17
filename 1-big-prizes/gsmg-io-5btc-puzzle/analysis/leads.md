@@ -80,6 +80,13 @@ What would kill it: exhausting the small set of reasonable "reverse" readings
 objects with no match.
 Cost: minutes to hours; this is a small, well-defined space, not a sweep.
 
+2026-08-16 update: six evidence-bounded reversals reached the target-bound,
+partially certified small-blob oracle pipeline with 0 match: source-case and
+lowercase reading-order reversals of the 256- and 285-symbol objects, the small
+blob's reversed base64 text, and its decoded bytes reversed then re-encoded as
+base64. This does not cover bit-level reversals or the Dualite gate, so the lead
+remains open.
+
 ## 5. Read the 29 symbols dropped during the object-256 reduction
 
 Reducing the 285-letter pre-reduction stream to the 256-symbol object drops exactly
@@ -93,6 +100,16 @@ What would kill it: reading them under the small set of reasonable orderings
 (extraction order, position order) and finding neither a match nor a legible
 fragment.
 Cost: minutes; the space is small (29 letters, a handful of reading orders).
+
+2026-08-16 update: the repository now pins a manual 570-character Bifid
+ciphertext extraction; the full public SalPhaseIon stream is not shipped, so
+the extraction boundary is not self-contained. The pinned ciphertext
+round-trips and produces an exact dropped sequence committed by SHA-256
+`1a9599b2566222fcfe7e2564b7dd7013e140f191065a697fe67693f9de02c191`.
+Its extraction, reversal, and Bifid encrypt/decrypt readings under `DBIFHCEG`
+for both orientations (6 target-bound, partially certified oracle submissions)
+produced 0 match. The sequence does not form a legible fragment under these
+readings; broader semantic or non-Bifid interpretations remain open.
 
 ## Where the "Dualite" blob and the second address fit
 

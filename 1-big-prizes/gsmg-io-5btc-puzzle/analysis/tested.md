@@ -124,15 +124,55 @@ scripts constructed dynamically at run time (concatenations, permutations, chain
 derivations). Those dynamic patterns are the subject of the open lead ranked first
 in the README; this row is why that lead is ranked first rather than closed.
 
+## 9. The 29 letters dropped from the 285-symbol interleave
+
+Method: pinned the 570-character Bifid ciphertext manually extracted from the
+public SalPhaseIon transformation. The full upstream token stream is not
+shipped, so the reported 90-token prefix, 104-token `abba` block, and first
+`z` boundary are not reproducible from repository artifacts alone. Standard
+Bifid decryption with keyed square `DBIFHCEG`, omitting J and using period 570,
+round-trips byte-for-byte and begins `BTCSEED`. The second (zero-based
+odd-indexed) 285-symbol interleave contains 29 I/O symbols; removing them
+leaves the documented 256 symbols over 23 letters. The extracted sequence is
+committed by SHA-256
+`1a9599b2566222fcfe7e2564b7dd7013e140f191065a697fe67693f9de02c191`.
+
+Six deterministic candidate readings were submitted to `tools/oracle.py`:
+the extraction and its reversal, plus Bifid encrypt/decrypt under `DBIFHCEG`
+for both orientations. The one-candidate preflight measured D = 77.22
+candidates/s, so N = 6 gave t = 0.0777 seconds. Result: 6 submissions, 0
+match. Witness: the pinned 570-character ciphertext re-encryption round trip
+and length/alphabet invariants passed; each candidate was submitted to
+`attempt()`, which reaches its exact address comparator only after valid PKCS7
+padding and scalar derivation. The oracle selftest independently certifies its
+AES and address halves, not an end-to-end known-good `attempt()` vector. Date:
+2026-08-16.
+
+## 10. Bounded `esrever` readings of current final-gate artifacts
+
+Method: six target-bound reversals were submitted to `tools/oracle.py`: reverse
+reading-order forms of the 256-symbol and 285-symbol objects in source and
+lowercase presentation, plus reversal of the small blob's base64 text and
+byte-order reversal of its decoded 96 bytes re-encoded as base64. The
+one-candidate preflight measured D = 6819.14 candidates/s, so N = 6 gave
+t = 0.0009 seconds.
+
+Result: 6 submissions, 0 match. Witness: every candidate was submitted to
+`attempt()`, which reaches its exact address comparator only after valid PKCS7
+padding and scalar derivation. The oracle selftest independently certifies its
+AES and address halves, not an end-to-end known-good `attempt()` vector. Date:
+2026-08-16. This bounded family does not cover bit-level reversals or the
+separate Dualite gate.
+
+
 ## Cumulative
 
 Across the 7 completed hypothesis families above (rows 1 to 7), 335,724,615
 candidate submissions were made against the real address-comparison logic used in
 the private research, all negative. Row 8's 116,043 submissions are reported
-separately because that replay is explicitly partial. Rows 1 to 5 test the
-hypothesis that the 256-symbol object reduces directly to a 32-byte key, bypassing
-the AES blob entirely; row 6 tests the large blob without a password. None of these
-rows tested the small-blob pipeline that `tools/oracle.py` in this folder
-implements (candidate answer to sha256 password to AES decrypt); that specific,
-publicly reproducible half of the final gate had not been isolated and swept on its
-own as of the private research's last update.
+separately because that replay is explicitly partial. Rows 9 and 10 add 12
+negative, target-bound submissions through the partially certified small-blob
+oracle pipeline. Rows 1 to 5 test the hypothesis that the 256-symbol object
+reduces directly to a 32-byte key, bypassing the AES blob; row 6 tests the large
+blob without a password. Rows 9 and 10 are narrowly scoped candidate-answer
+tests, not a password sweep.

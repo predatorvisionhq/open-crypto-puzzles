@@ -30,6 +30,8 @@ even though the identical toolbox worked on the prior one.
 | Higher-resolution or vector source | prize contract tokenURI, POAP asset server, artist website, album video | direct fetch and comparison | refuted: the 2004x2011 raster in this folder is the finest source found anywhere; the album video is 1080p, lower resolution than the plot | yes | 2026-06-17 |
 | Calibration against a known-answer "Bifurcations" POAP | POAP GraphQL query for any drop with "bifurcation" in its name | direct API query | refuted: 0 drops match; no known-answer clock image exists for this artist to reverse-engineer the readout rule from | yes | 2026-06-17 |
 
+| Native-artifact viability audit for the numeral-bottom-pixel and ray-length-per-hour selectors | `N=0` candidates for each selector | Verified the stored image SHA-256, then inspected the native raster's overlay geometry: no twelve-number clock-numeral set exists, and the radial rays have no image-specified hour-to-cell mapping | no candidate stream; no match test applicable | `tools/oracle.py --selftest` passed its BIP39 KAT, positive `check()` control, negative control, invalid-checksum rejection, and solved-sibling BIP84 vector; BaseScan showed the escrow at 0.551 ETH | 2026-08-16 |
+
 ## Explicitly not fed to the oracle
 
 Sung lyrics on 2 tracks (DiscomfortMeditation, ShadowRealm) contain several BIP39 wordlist
@@ -40,10 +42,10 @@ as untested, not as a negative.
 
 ## Summary
 
-Across the POAP-image family, 1,193,373 plus 531,441 times 4 plus the exact 1,495,908-member
-single-hour `+/-2` family and a sampled 8.6e8-sized space have been checked, with 0 matches
-and 0 partial hits. The clock-and-grid mechanism itself (order from the hour position, word
-from the wordlist cell the numeral overlays) is confirmed by 3 hours that read with no row
-ambiguity. Remaining variants require either multiple hours to move outside the prior
-`+/-1` rows or a different pixel-selection rule; the published 2004-pixel raster does not
-resolve either constraint further.
+The 1,193,373, 531,441-times-four, and 1,495,908 candidate totals are exact
+historical oracle counts, but they test an unverified clock-and-grid readout
+hypothesis rather than an image-derived selector.  The native-raster audit
+found no twelve-numeral clock layer, so the asserted hour-to-cell mapping is
+not confirmed.  Both audited follow-ons have `N=0`; more row-window or
+pixel-selection enumeration is not bounded until an author-grounded
+twelve-cell mapping is recovered.

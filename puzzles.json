@@ -87,10 +87,10 @@
         "certified_against": "the author's own published calibration vector (entropy 2941774a2abec9f30c7d6777d1d53d91 to WIF L5Z66qPm... at BIP44 index 1), self-contained and exact; the case-flip rule and Block 76 prefix filter are certified separately with a synthetic example and a community-found candidate pair; full reproduction of the solved sibling lot Block 77 Stage One needs Hal Finney's bitcointalk post text, which this repository does not ship (third-party content), but which anyone can supply themselves to apply_stage_one_rule()"
       },
       "difficulty_left": "external-info",
-      "difficulty_note": "Real Big Block: the transform and the case-flip rule are confirmed exactly on a solved sibling lot; what is missing is the precise source text the author hashed on 2019-07-30, most likely the 2019 browser-rendered copy of a Wattpad chapter rather than today's API storage, which has been normalized; approximately 272 million candidate paragraph selections and edits tested, 0 match. Block 76: a community-found candidate pair satisfies both published MD5-prefix hints but no standard derivation of it reaches the address; roughly 78 million scripted derivations plus tens of thousands of thematic word-transform candidates tested, 0 match; the block may be a short human-reasoned wordplay riddle rather than a search problem, or may be misconfigured",
+      "difficulty_note": "Real Big Block: the transform and the case-flip rule are confirmed exactly on a solved sibling lot; what is missing is the precise source text the author hashed on 2019-07-30, most likely the 2019 browser-rendered copy of a Wattpad chapter rather than today's normalized API storage; approximately 272 million candidate paragraph selections and edits tested, 0 match. Block 76: roughly 78 million scripted derivations plus tens of thousands of thematic word-transform candidates tested, 0 match. A recovered chronological corpus of 87 r/Grycoin submissions selected one published pair at position 76; it failed both MD5 prefixes and the exact target comparison. The self-post-only corpus contains 71 records, so that interpretation has N=0. The block may be a short human-reasoned wordplay riddle rather than a search problem, or may be misconfigured",
       "tested_total": {
-        "candidates": 350000000,
-        "families": 21,
+        "candidates": 350000001,
+        "families": 22,
         "certified": true
       },
       "leads": [
@@ -616,8 +616,8 @@
       "difficulty_left": "insight",
       "difficulty_note": "the stage chain to the final page is fully solved and reproducible; the 256-symbol object the puzzle's own Bifid step produces has been tested as a direct 32-byte key reduction across roughly 335.7 million candidates with 0 match; the small blob's AES-decrypt pipeline is certified but no password has been found; a further 116,043-candidate replay of historical literal password guesses is also negative and explicitly partial (dynamically-constructed candidates from the same scripts were never replayed); the larger Dualite blob, which likely gates the second address, has never had any password tested against it",
       "tested_total": {
-        "candidates": 335840658,
-        "families": 8,
+        "candidates": 335840670,
+        "families": 10,
         "certified": true
       },
       "leads": [
@@ -2528,36 +2528,36 @@
       ],
       "target_format": "BIP39 12 words (English), BIP44 m/44'/60'/0'/0/0, no passphrase, address must equal the winner wallet authorized to call withdraw()",
       "derivation": {
-        "summary": "read 12 words in clock order off the POAP clock-and-wordlist image, derive the BIP44 m/44'/60'/0'/0/0 address (plus a small account/index neighbor sweep), and compare it to the winner wallet the prize contract's withdraw() function accepts",
+        "summary": "The earlier clock-order/numeral-overlay derivation is an unverified historical hypothesis, not a native-image-established selector. The byte-exact raster audit found no twelve-clock-numeral layer; a candidate family can only be generated after author-grounded geometry maps to exactly twelve BIP39 wordlist cells. The certified oracle remains ready to derive BIP44 addresses and compare them to the winner wallet once such a family exists.",
         "oracle": "tools/oracle.py",
         "oracle_certified": true,
         "certified_against": "the public BIP39 all-zero-entropy test vector and the artist's own prior solved 'Bifurcations' BIP84 vector"
       },
       "difficulty_left": "insight",
-      "difficulty_note": "the carrier (the POAP clock image, not the audio), the order (clock position), and the derivation path are all confirmed; 3 of 12 hours read with no ambiguity and over 3.3 million combinations of the rest have been tested negative; the blocker is a resolution limit on the only known copy of the image (a numeral spans about 2 text rows, so 9 of 12 hours carry about 3 candidate words each), not raw compute, so an unrecovered insight into the exact readout rule or a finer source is what remains",
+      "difficulty_note": "The previously assumed numeral-overlays-word selector cannot be derived from the byte-exact native raster: its visible red labels are plot-axis/scale labels rather than a twelve-hour numeral set. The audited bottom-pixel and ray-length variants therefore have N=0. The unresolved prerequisite is an author-grounded mapping from artwork geometry to exactly twelve BIP39 wordlist cells; without it, no further candidate family is bounded.",
       "tested_total": {
-        "candidates": 3319137,
-        "families": 3,
+        "candidates": 4815045,
+        "families": 4,
         "certified": true
       },
       "leads": [
         {
           "rank": 1,
-          "title": "re-run the grid enumeration at a wider row window, one doubtful hour at a time",
-          "cost": "hours",
+          "title": "recover an author-grounded twelve-cell geometry mapping",
+          "cost": "external evidence",
           "status": "open"
         },
         {
           "rank": 2,
           "title": "resample at the numeral's bottom pixel instead of its centroid",
           "cost": "minutes",
-          "status": "open"
+          "status": "closed"
         },
         {
           "rank": 3,
           "title": "test the sunburst ray length as an alternative per-hour selector",
           "cost": "hours",
-          "status": "open"
+          "status": "closed"
         }
       ],
       "solutions": [],
